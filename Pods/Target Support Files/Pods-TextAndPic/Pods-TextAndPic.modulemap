@@ -1,0 +1,6 @@
+framework module Pods_TextAndPic {
+  umbrella header "Pods-TextAndPic-umbrella.h"
+
+  export *
+  module * { export * }
+}
