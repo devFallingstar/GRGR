@@ -20,6 +20,9 @@
 		DDD11F642136C916009D8C22 /* FirebaseDBHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD11F632136C916009D8C22 /* FirebaseDBHelper.swift */; };
 		DDD11F672136CF61009D8C22 /* SetNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD11F652136CF61009D8C22 /* SetNicknameViewController.swift */; };
 		DDD11F6A21401505009D8C22 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD11F6921401505009D8C22 /* CollectionViewCell.swift */; };
+		DDD11F702141629A009D8C22 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD11F6F2141629A009D8C22 /* MyPageViewController.swift */; };
+		DDD11F7521416911009D8C22 /* PostcardCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD11F7421416911009D8C22 /* PostcardCollectionViewController.swift */; };
+		DDD11F77214169F4009D8C22 /* PostcardContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD11F76214169F4009D8C22 /* PostcardContentViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,9 @@
 		DDD11F632136C916009D8C22 /* FirebaseDBHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDBHelper.swift; sourceTree = "<group>"; };
 		DDD11F652136CF61009D8C22 /* SetNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetNicknameViewController.swift; sourceTree = "<group>"; };
 		DDD11F6921401505009D8C22 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		DDD11F6F2141629A009D8C22 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		DDD11F7421416911009D8C22 /* PostcardCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostcardCollectionViewController.swift; sourceTree = "<group>"; };
+		DDD11F76214169F4009D8C22 /* PostcardContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostcardContentViewController.swift; sourceTree = "<group>"; };
 		E3BD20F0CDB5315B48CCBEF2 /* Pods_TextAndPic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TextAndPic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -108,10 +114,11 @@
 		DDD11F572136B5AE009D8C22 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				DDD11F7821416E53009D8C22 /* Camera */,
+				DDD11F7121416812009D8C22 /* Detail */,
+				DDD11F6E21403730009D8C22 /* MyPage */,
 				DDD11F5E2136C6D5009D8C22 /* Login */,
-				DDD11F452136B43A009D8C22 /* HomeViewController.swift */,
-				DDD11F5B2136B89F009D8C22 /* LoginViewController.swift */,
-				DDD11F6921401505009D8C22 /* CollectionViewCell.swift */,
+				DDD11F6D2140371D009D8C22 /* Home */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -144,11 +151,45 @@
 		DDD11F5E2136C6D5009D8C22 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				DDD11F5B2136B89F009D8C22 /* LoginViewController.swift */,
 				DDD11F5F2136C74A009D8C22 /* CustomFBAuthViewController.swift */,
 				DDD11F602136C74A009D8C22 /* CustomFBAuthViewController.xib */,
 				DDD11F652136CF61009D8C22 /* SetNicknameViewController.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		DDD11F6D2140371D009D8C22 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				DDD11F6921401505009D8C22 /* CollectionViewCell.swift */,
+				DDD11F452136B43A009D8C22 /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		DDD11F6E21403730009D8C22 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				DDD11F6F2141629A009D8C22 /* MyPageViewController.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		DDD11F7121416812009D8C22 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				DDD11F7421416911009D8C22 /* PostcardCollectionViewController.swift */,
+				DDD11F76214169F4009D8C22 /* PostcardContentViewController.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		DDD11F7821416E53009D8C22 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Camera;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,6 +294,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TextAndPic/Pods-TextAndPic-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ALCameraViewController/ALCameraViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
@@ -272,6 +314,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ALCameraViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
@@ -331,7 +374,10 @@
 				DDD11F6A21401505009D8C22 /* CollectionViewCell.swift in Sources */,
 				DDD11F672136CF61009D8C22 /* SetNicknameViewController.swift in Sources */,
 				DDD11F612136C74A009D8C22 /* CustomFBAuthViewController.swift in Sources */,
+				DDD11F77214169F4009D8C22 /* PostcardContentViewController.swift in Sources */,
 				DDD11F442136B43A009D8C22 /* AppDelegate.swift in Sources */,
+				DDD11F7521416911009D8C22 /* PostcardCollectionViewController.swift in Sources */,
+				DDD11F702141629A009D8C22 /* MyPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
