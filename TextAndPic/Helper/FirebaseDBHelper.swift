@@ -8,18 +8,24 @@
 
 import Foundation
 import Firebase
-import FirebaseFirestore
 
 class FirebaseDBHelper {
-    let collectionUser:CollectionReference?
-    let collectionPics:CollectionReference?
-    let collectionArtics:CollectionReference?
+    let collectionUser:CollectionReference!
+    let collectionPics:CollectionReference!
+    let collectionArtics:CollectionReference!
+    let storagePics:StorageReference!
+    let storageArtics:StorageReference!
     
     init() {
         let db = Firestore.firestore()
+        let storage = Storage.storage().reference()
+        
         collectionUser = db.collection("collect_users")
         collectionPics = db.collection("collect_pics")
         collectionArtics = db.collection("collect_artics")
+        
+        storagePics = storage.child("content_pictures/")
+        storageArtics = storage.child("content_articles/")
     }
     
     func addNewUser(withId _id:String!, _nickname:String!, _platform:String!, completionHandler:@escaping (_ isAdded:Bool) -> Void){
@@ -57,6 +63,23 @@ class FirebaseDBHelper {
                 completionHandler(false)
             }
         }
+    }
+    
+    func uploadPictureToStorage(withPicture _picture:UIImage!, completionHandler:@escaping (_ isUploaded:Bool) -> Void) {
+        var imageData = Data()
+        var imageRef = storagePics.child("testpics.png")
+        imageData = UIImagePNGRepresentation(_picture)!
+        
+        imageRef.putData(imageData, metadata: nil) { (metadata, error) in
+            guard let metadata = metadata else{
+                print(error)
+                completionHandler(false)
+                return
+            }
+            completionHandler(true)
+            
+        }
+        
     }
 }
 
