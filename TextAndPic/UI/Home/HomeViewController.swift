@@ -21,7 +21,10 @@ class HomeViewController: UIViewController, NVActivityIndicatorViewable {
     var activityIndicatorView:NVActivityIndicatorView!
     
     var date_list = ["2018.08.06", "2018.12.29", "2018.07.29", "2018.11.11"]
+    var documents_list:Array<String>!
     var pictures_list:Array<UIImage>!
+    var cellModelsList:Array<CollectionViewCellModel>!
+    var selectedPictureID:String!
     
     @IBOutlet weak var HomeCollectionView: UICollectionView!
     @IBOutlet weak var lbl_date: UILabel!
@@ -33,6 +36,7 @@ class HomeViewController: UIViewController, NVActivityIndicatorViewable {
         
         initUI()
         initDBInformation()
+//        self.startAnimating(message: "엽서 받는 중", type: NVActivityIndicatorType.ballPulse)
         initHomeListItems()
     }
     
@@ -40,7 +44,7 @@ class HomeViewController: UIViewController, NVActivityIndicatorViewable {
         cellWidth = view.frame.width - 70
         cellHeight = cellWidth*3 / 4
         
-        print("Widht : \(cellWidth), Height : \(cellHeight)")
+        print("Width : \(cellWidth), Height : \(cellHeight)")
         
         let insetX = (HomeCollectionView.bounds.width - cellWidth) / 2.0
         let insetY = (HomeCollectionView.bounds.height - cellHeight) / 2.0
@@ -65,64 +69,97 @@ class HomeViewController: UIViewController, NVActivityIndicatorViewable {
     }
     
     func initHomeListItems() {
+        self.documents_list = []
         self.pictures_list = []
+        self.cellModelsList = []
+        
         firebaseDBHelper?.getRandomPicturesID(completionHandler: { (documentID) in
-//            print("Document ID : \(documentID)")
-            
-            self.firebaseDBHelper?.getImageWithDownloadURL(withImageName: documentID, completionHandler: { (image) in
-                self.pictures_list.append(image)
-                self.HomeCollectionView.reloadData()
-            })
+            self.documents_list.append(documentID)
+            if self.documents_list.count == 3 {
+                
+                self.firebaseDBHelper?.getImageWithDownloadURL(withImageName: self.documents_list[0], completionHandler: { (image) in
+                    self.pictures_list.append(image)
+                    self.cellModelsList.append(CollectionViewCellModel(image: image, date: ""))
+                    
+                    self.firebaseDBHelper?.getImageWithDownloadURL(withImageName: self.documents_list[1], completionHandler: { (image) in
+                        self.pictures_list.append(image)
+                        self.cellModelsList.append(CollectionViewCellModel(image: image, date: ""))
+                        
+                        self.firebaseDBHelper?.getImageWithDownloadURL(withImageName: self.documents_list[2], completionHandler: { (image) in
+                            self.pictures_list.append(image)
+                            self.cellModelsList.append(CollectionViewCellModel(image: image, date: ""))
+                            if self.pictures_list.count == 3 {
+                                self.HomeCollectionView.reloadData()
+                                self.stopAnimating()
+                            }
+                        })
+                    })
+                })
+            }
         })
     }
     
     @IBAction func onCameraBtnClicked(_ sender: Any) {
-        let cameraViewController = CameraViewController { [weak self] image, asset in
+        let cameraViewController = CameraViewController(allowsSwapCameraOrientation: true) { [weak self] image, asset in
             var DocumentID:String!
             var currentEmail : String!
             currentEmail = self?.currentUser?.email
             
-            self?.startAnimating(message: "엽서 작성 중", type: NVActivityIndicatorType.ballPulse)
-            
-            DocumentID = self?.firebaseDBHelper?.addNewPictureInfo(withOwner: currentEmail, completionHandler: { (isAdded) in
-                var dialog:AZDialogViewController!
-                if isAdded {
-                    self?.stopAnimating()
-                    self?.startAnimating(message: "엽서 띄우는 중", type: NVActivityIndicatorType.ballPulse)
-                    
-                    self?.firebaseDBHelper?.uploadPictureToStorage(withPicture: image, _filename: DocumentID, completionHandler: { (isUploaded) in
-                        if isUploaded {
-                            self?.firebaseDBHelper?.appendPictureToUserInfo(withOwner: currentEmail, pictureID: DocumentID, completionHandler: { (isUploaded) in
-                                if isUploaded {
-                                    dialog = AZDialogViewController(title: "띄우기 성공", message: "엽서를 띄웠습니다.")
-                                    print("Uploaded!")
-                                }else {
-                                    dialog = AZDialogViewController(title: "띄우기 실패", message: "다시 한 번 시도해주세요.")
-                                    print("Failed to Upload!")
-                                }
+            if image != nil {
+                self?.startAnimating(message: "엽서 작성 중", type: NVActivityIndicatorType.ballPulse)
+                
+                DocumentID = self?.firebaseDBHelper?.addNewPictureInfo(withOwner: currentEmail, completionHandler: { (isAdded) in
+                    var dialog:AZDialogViewController!
+                    if isAdded {
+                        self?.stopAnimating()
+                        self?.startAnimating(message: "엽서 띄우는 중", type: NVActivityIndicatorType.ballPulse)
+                        
+                        self?.firebaseDBHelper?.uploadPictureToStorage(withPicture: image, _filename: DocumentID, completionHandler: { (isUploaded) in
+                            if isUploaded {
+                                self?.firebaseDBHelper?.appendPictureToUserInfo(withOwner: currentEmail, pictureID: DocumentID, completionHandler: { (isUploaded) in
+                                    if isUploaded {
+                                        dialog = AZDialogViewController(title: "띄우기 성공", message: "엽서를 띄웠습니다.")
+                                        print("Uploaded!")
+                                    }else {
+                                        dialog = AZDialogViewController(title: "띄우기 실패", message: "다시 한 번 시도해주세요.")
+                                        print("Failed to Upload!")
+                                    }
+                                    self?.stopAnimating()
+                                    dialog.show(in: self!)
+                                })
+                            }else {
+                                dialog = AZDialogViewController(title: "띄우기 실패", message: "다시 한 번 시도해주세요.")
+                                print("Failed to Upload!")
                                 self?.stopAnimating()
                                 dialog.show(in: self!)
-                            })
-                        }else {
-                            dialog = AZDialogViewController(title: "띄우기 실패", message: "다시 한 번 시도해주세요.")
-                            print("Failed to Upload!")
-                            self?.stopAnimating()
-                            dialog.show(in: self!)
-                        }
-                    })
-                }else {
-                    dialog = AZDialogViewController(title: "띄우기 실패", message: "다시 한 번 시도해주세요.")
-                    print("Failed to Add!")
-                    self?.stopAnimating()
-                    dialog.show(in: self!)
-                }
-            })
+                            }
+                        })
+                    }else {
+                        dialog = AZDialogViewController(title: "띄우기 실패", message: "다시 한 번 시도해주세요.")
+                        print("Failed to Add!")
+                        self?.stopAnimating()
+                        dialog.show(in: self!)
+                    }
+                })
+            }
             
             self?.dismiss(animated: true, completion: nil)
         }
         
         present(cameraViewController, animated: true, completion: nil)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "home_to_postcard_collection" {
+            if let destinationVC = segue.destination as? PostcardCollectionViewController {
+                destinationVC.selectedPictureID = self.selectedPictureID
+                destinationVC.currentEmail = self.currentUser?.email
+                destinationVC.currentUser = self.currentUser
+            }
+        }
+    }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -140,15 +177,20 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath) as! CollectionViewCell
-
+        
         if cell.imageview_pic != nil {
-            cell.backgroundColor = itemColors[indexPath.row]
             cell.imageview_pic!.image = self.pictures_list[indexPath.row]
-            cell.imageview_pic!.frame.size.width = cellWidth
-            cell.imageview_pic!.frame.size.height = cellHeight
         }
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        self.selectedPictureID = self.documents_list[indexPath.row]
+        print("Selected Index \(indexPath.row)")
+        print("Selected Picture ID \(self.selectedPictureID)")
+        performSegue(withIdentifier: "home_to_postcard_collection", sender: nil)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

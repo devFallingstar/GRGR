@@ -6,4 +6,9 @@
 //  Copyright © 2018년 Fallingstar. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+struct CollectionViewCellModel {
+    let image: UIImage
+    let date: String
+}
