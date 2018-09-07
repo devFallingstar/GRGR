@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3E9B11D9321E3F16C9553F994EA0EF2C"
+               BlueprintIdentifier = "87D1D3EE895CB8DDCF243F524C83581F"
                BuildableName = "UPCarouselFlowLayout.framework"
                BlueprintName = "UPCarouselFlowLayout"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3E9B11D9321E3F16C9553F994EA0EF2C"
+            BlueprintIdentifier = "87D1D3EE895CB8DDCF243F524C83581F"
             BuildableName = "UPCarouselFlowLayout.framework"
             BlueprintName = "UPCarouselFlowLayout"
             ReferencedContainer = "container:Pods.xcodeproj">

@@ -18,4 +18,7 @@ target 'TextAndPic' do
 
   pod 'UPCarouselFlowLayout'
   pod 'ALCameraViewController'
+  
+pod 'NVActivityIndicatorView'
+  pod 'AZDialogView'
 end

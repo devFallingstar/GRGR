@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0C529B88CD286F04CC0FC18038F3524F"
-               BuildableName = "Pods_TextAndPic.framework"
-               BlueprintName = "Pods-TextAndPic"
+               BlueprintIdentifier = "0A53A7E5CCA595FB792F90F8846B3606"
+               BuildableName = "AZDialogView.framework"
+               BlueprintName = "AZDialogView"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0C529B88CD286F04CC0FC18038F3524F"
-            BuildableName = "Pods_TextAndPic.framework"
-            BlueprintName = "Pods-TextAndPic"
+            BlueprintIdentifier = "0A53A7E5CCA595FB792F90F8846B3606"
+            BuildableName = "AZDialogView.framework"
+            BlueprintName = "AZDialogView"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

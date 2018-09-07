@@ -1,5 +1,6 @@
 PODS:
   - ALCameraViewController (3.0.3)
+  - AZDialogView (1.2.1)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
@@ -145,11 +146,15 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - NVActivityIndicatorView (4.3.0):
+    - NVActivityIndicatorView/Presenter (= 4.3.0)
+  - NVActivityIndicatorView/Presenter (4.3.0)
   - Protobuf (3.6.1)
   - UPCarouselFlowLayout (1.1.1)
 
 DEPENDENCIES:
   - ALCameraViewController
+  - AZDialogView
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Firestore
@@ -158,11 +163,13 @@ DEPENDENCIES:
   - FirebaseUI/Facebook
   - FirebaseUI/Google
   - GoogleSignIn
+  - NVActivityIndicatorView
   - UPCarouselFlowLayout
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - ALCameraViewController
+    - AZDialogView
     - Bolts
     - BoringSSL
     - FBSDKCoreKit
@@ -188,11 +195,13 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - NVActivityIndicatorView
     - Protobuf
     - UPCarouselFlowLayout
 
 SPEC CHECKSUMS:
   ALCameraViewController: 6398a9282057f709b87a1ecc52a83b48028ade64
+  AZDialogView: 75a481ef11e78b047e9d7d212a83b76a8d91627f
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BoringSSL: e10f92a27043805c01071fe815a5cd98ae8212e7
   FBSDKCoreKit: 3b8e6570eedb443f9fc4af196a7bf39f18e3a3d8
@@ -218,9 +227,10 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  NVActivityIndicatorView: 963f62bf9f993fcf23218e55958e5b1761b9504c
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   UPCarouselFlowLayout: 02045c1505d63057fba3d9975be880a8d16bf17d
 
-PODFILE CHECKSUM: 6319ffc8008919fee60a999e16f9be9f77493141
+PODFILE CHECKSUM: 45e440365a08dfe9afccaa31993e0657bc06fe9b
 
 COCOAPODS: 1.6.0.beta.1
