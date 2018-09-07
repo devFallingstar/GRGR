@@ -17,4 +17,5 @@ target 'TextAndPic' do
   pod 'FirebaseUI/Facebook'
 
   pod 'UPCarouselFlowLayout'
+  pod 'ALCameraViewController'
 end
