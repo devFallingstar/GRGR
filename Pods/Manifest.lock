@@ -145,6 +145,9 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - NVActivityIndicatorView (4.3.0):
+    - NVActivityIndicatorView/Presenter (= 4.3.0)
+  - NVActivityIndicatorView/Presenter (4.3.0)
   - Protobuf (3.6.1)
   - UPCarouselFlowLayout (1.1.1)
 
@@ -158,6 +161,7 @@ DEPENDENCIES:
   - FirebaseUI/Facebook
   - FirebaseUI/Google
   - GoogleSignIn
+  - NVActivityIndicatorView
   - UPCarouselFlowLayout
 
 SPEC REPOS:
@@ -188,6 +192,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - NVActivityIndicatorView
     - Protobuf
     - UPCarouselFlowLayout
 
@@ -218,9 +223,10 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  NVActivityIndicatorView: 963f62bf9f993fcf23218e55958e5b1761b9504c
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   UPCarouselFlowLayout: 02045c1505d63057fba3d9975be880a8d16bf17d
 
-PODFILE CHECKSUM: 6319ffc8008919fee60a999e16f9be9f77493141
+PODFILE CHECKSUM: c9964e6959583fcf1a2c764f0cae845fa0f81a0a
 
 COCOAPODS: 1.6.0.beta.1

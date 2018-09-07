@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8C3282879F1A19931819D252730772D4"
-               BuildableName = "Pods_TextAndPic.framework"
-               BlueprintName = "Pods-TextAndPic"
+               BlueprintIdentifier = "978D35F2E84D7D745602FFB2E17B1021"
+               BuildableName = "NVActivityIndicatorView.framework"
+               BlueprintName = "NVActivityIndicatorView"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8C3282879F1A19931819D252730772D4"
-            BuildableName = "Pods_TextAndPic.framework"
-            BlueprintName = "Pods-TextAndPic"
+            BlueprintIdentifier = "978D35F2E84D7D745602FFB2E17B1021"
+            BuildableName = "NVActivityIndicatorView.framework"
+            BlueprintName = "NVActivityIndicatorView"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
