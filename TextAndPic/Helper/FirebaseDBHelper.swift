@@ -50,7 +50,7 @@ class FirebaseDBHelper {
         }
     }
     
-    func getUserInfo(withId _id:String!, completionHandler:@escaping (_ isExist:Bool) -> Void){
+    func getIfUserExist(withId _id:String!, completionHandler:@escaping (_ isExist:Bool) -> Void){
         let token = _id.toBase64()
         let docRef = collectionUser?.document(token)
         
@@ -64,6 +64,7 @@ class FirebaseDBHelper {
             }
         }
     }
+    
     
     func uploadPictureToStorage(withPicture _picture:UIImage!, _filename:String!,  completionHandler:@escaping (_ isUploaded:Bool) -> Void) {
         var imageData = Data()
@@ -83,7 +84,7 @@ class FirebaseDBHelper {
     func addNewPictureInfo(withOwner _owner:String!, completionHandler:@escaping (_ isAdded:Bool) -> Void) -> String {
         var ref: DocumentReference! = nil
         ref = self.collectionPics.addDocument(data: [
-            "articles" : [],
+            "articles" : [String:String](),
             "createDate" : "\(Date().ticks)",
             "filename" : "",
             "owner" : "\(_owner.toBase64())",
@@ -108,7 +109,7 @@ class FirebaseDBHelper {
     
     func appendPictureToUserInfo(withOwner _owner:String!, pictureID:String!, completionHandler:@escaping (_ isUploaded:Bool) -> Void) {
         collectionUser.document(_owner.toBase64()).updateData([
-            "userArtics."+pictureID : pictureID
+            "userPics."+pictureID : pictureID
         ]) { (error) in
             if error != nil {
                 completionHandler(false)
@@ -126,7 +127,6 @@ class FirebaseDBHelper {
         
         queryRef.getDocuments { (snapshot, error) in
             for document in snapshot!.documents {
-                // TODO - 도큐먼트 하나 받아서 position 값 바꿔주고 completion return 하기
                 self.collectionPics.document(document.documentID).updateData(["position" : arc4random_uniform(100)])
                 
                 completionHandler(document.documentID)
@@ -138,8 +138,115 @@ class FirebaseDBHelper {
         let imageRef = storagePics.child(_imageName+".jpeg")
         
         imageRef.getData(maxSize: 1024*1024*5) { (data, error) in
-            let pic = UIImage(data: data!)
-            completionHandler(pic!)
+            print("Downloading IMAGE : \(_imageName)")
+            if data != nil {
+                let pic = UIImage(data: data!)
+                completionHandler(pic!)
+            }
+        }
+    }
+    
+    func getArticleInfo(withArticleID _articleID:String!, completionHandler:@escaping (_ ArticleInfo:Dictionary<String, String>) -> Void) {
+        var ArticleInfo:Dictionary<String, String> = [String:String]()
+        collectionArtics.document(_articleID).getDocument { (snapshot, error) in
+            let title = snapshot?.get("title") as! String
+            let filename = snapshot?.get("filename") as! String
+            let date = snapshot?.get("createDate") as! Int
+            let dateStr = String(millisecondsToDateString: date)
+            let textRef = self.storageArtics.child(_articleID+".txt")
+            
+            textRef.getData(maxSize: 1024*1024*5) { (data, error) in
+                print(filename)
+                ArticleInfo["title"] = title
+                ArticleInfo["filename"] = filename
+                ArticleInfo["content"] = String(data: data!, encoding: String.Encoding.utf8)
+                ArticleInfo["date"] = dateStr
+                
+                print("Date!!! : \(date)")
+                print("Date!!! : \(dateStr)")
+                
+                completionHandler(ArticleInfo)
+            }
+        }
+    }
+    
+    func addNewArticleInfo(withOwner _owner:String, _title:String, content:String, targetPic:String, completionHandler:@escaping (_ isAdded:Bool) -> Void) -> String {
+        var ref: DocumentReference! = nil
+        ref = collectionArtics.addDocument(data: [
+            "createDate" : Date().ticks,
+            "filename" : "",
+            "owner" : _owner,
+            "targetPic" : targetPic,
+            "title" : _title
+        ]) { (error) in
+            if error != nil {
+                completionHandler(false)
+            }else {
+                self.collectionArtics.document("\(ref!.documentID)").updateData([
+                    "filename" : ref!.documentID
+                    ], completion: { (error) in
+                        if error != nil {
+                            completionHandler(false)
+                        }else {
+                            completionHandler(true)
+                        }
+                })
+            }
+        }
+        
+        return ref.documentID
+    }
+    
+    func uploadArticleToStorage(withArticle _article:String!, _filename:String!,  completionHandler:@escaping (_ isUploaded:Bool) -> Void) {
+        let txtRef = storageArtics.child(_filename+".txt")
+        let txtData = Data(_article.utf8)
+        
+        txtRef.putData(txtData, metadata: nil) { (metadata, error) in
+            guard metadata != nil else{
+                print(error!)
+                completionHandler(false)
+                return
+            }
+            completionHandler(true)
+        }
+    }
+    
+    func appendArticleToUserInfo(withOwner _owner:String!, articleID:String!, completionHandler:@escaping (_ isUploaded:Bool) -> Void) {
+        collectionUser.document(_owner.toBase64()).updateData([
+            "userArtics."+articleID : articleID
+        ]) { (error) in
+            if error != nil {
+                completionHandler(false)
+            }else {
+                completionHandler(true)
+            }
+        }
+    }
+    
+    func appendArticleToPictureInfo(withPictureID _pictureID:String!, articleID:String!, completionHandler:@escaping (_ isUploaded:Bool) -> Void) {
+        collectionPics.document(_pictureID).updateData([
+            "articles."+articleID : articleID
+        ]) { (error) in
+            if error != nil {
+                completionHandler(false)
+            }else {
+                completionHandler(true)
+            }
+        }
+    }
+    
+    func getArticles(WithImageId _imageId:String, completionHandler:@escaping (_ Articles:Array<String>) -> Void) {
+        collectionPics.document(_imageId).getDocument { (snapshot, error) in
+            // TODO
+            self.collectionPics.document(_imageId).getDocument(completion: { (snapshot, error) in
+                var Articles:Array<String> = []
+                let map_articles:[String:String] = snapshot?.get("articles") as! [String : String]
+                for (each_key, _) in map_articles {
+                    Articles.append(each_key)
+                }
+                print("Map Articles : \(Articles)")
+                completionHandler(Articles)
+            })
         }
     }
 }
