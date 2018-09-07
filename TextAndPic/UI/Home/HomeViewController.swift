@@ -9,14 +9,19 @@
 import UIKit
 import FirebaseAuth
 import ALCameraViewController
+import NVActivityIndicatorView
+import AZDialogView
 
-class HomeViewController: UIViewController {
+
+class HomeViewController: UIViewController, NVActivityIndicatorViewable {
     var currentUser:User?
     var cellWidth:CGFloat!
     var cellHeight:CGFloat!
     var firebaseDBHelper:FirebaseDBHelper?
+    var activityIndicatorView:NVActivityIndicatorView!
     
     var date_list = ["2018.08.06", "2018.12.29", "2018.07.29", "2018.11.11"]
+    var pictures_list:Array<UIImage>!
     
     @IBOutlet weak var HomeCollectionView: UICollectionView!
     @IBOutlet weak var lbl_date: UILabel!
@@ -28,6 +33,7 @@ class HomeViewController: UIViewController {
         
         initUI()
         initDBInformation()
+        initHomeListItems()
     }
     
     func initUI() {
@@ -58,16 +64,60 @@ class HomeViewController: UIViewController {
         self.firebaseDBHelper = FirebaseDBHelper()
     }
     
+    func initHomeListItems() {
+        self.pictures_list = []
+        firebaseDBHelper?.getRandomPicturesID(completionHandler: { (documentID) in
+//            print("Document ID : \(documentID)")
+            
+            self.firebaseDBHelper?.getImageWithDownloadURL(withImageName: documentID, completionHandler: { (image) in
+                self.pictures_list.append(image)
+                self.HomeCollectionView.reloadData()
+            })
+        })
+    }
+    
     @IBAction func onCameraBtnClicked(_ sender: Any) {
         let cameraViewController = CameraViewController { [weak self] image, asset in
-            // Do something with your image here.
-            self?.firebaseDBHelper?.uploadPictureToStorage(withPicture: image, completionHandler: { (isUploaded) in
-                if isUploaded {
-                    print("Uploaded!")
+            var DocumentID:String!
+            var currentEmail : String!
+            currentEmail = self?.currentUser?.email
+            
+            self?.startAnimating(message: "엽서 작성 중", type: NVActivityIndicatorType.ballPulse)
+            
+            DocumentID = self?.firebaseDBHelper?.addNewPictureInfo(withOwner: currentEmail, completionHandler: { (isAdded) in
+                var dialog:AZDialogViewController!
+                if isAdded {
+                    self?.stopAnimating()
+                    self?.startAnimating(message: "엽서 띄우는 중", type: NVActivityIndicatorType.ballPulse)
+                    
+                    self?.firebaseDBHelper?.uploadPictureToStorage(withPicture: image, _filename: DocumentID, completionHandler: { (isUploaded) in
+                        if isUploaded {
+                            self?.firebaseDBHelper?.appendPictureToUserInfo(withOwner: currentEmail, pictureID: DocumentID, completionHandler: { (isUploaded) in
+                                if isUploaded {
+                                    dialog = AZDialogViewController(title: "띄우기 성공", message: "엽서를 띄웠습니다.")
+                                    print("Uploaded!")
+                                }else {
+                                    dialog = AZDialogViewController(title: "띄우기 실패", message: "다시 한 번 시도해주세요.")
+                                    print("Failed to Upload!")
+                                }
+                                self?.stopAnimating()
+                                dialog.show(in: self!)
+                            })
+                        }else {
+                            dialog = AZDialogViewController(title: "띄우기 실패", message: "다시 한 번 시도해주세요.")
+                            print("Failed to Upload!")
+                            self?.stopAnimating()
+                            dialog.show(in: self!)
+                        }
+                    })
                 }else {
-                    print("Failed to Upload!")
+                    dialog = AZDialogViewController(title: "띄우기 실패", message: "다시 한 번 시도해주세요.")
+                    print("Failed to Add!")
+                    self?.stopAnimating()
+                    dialog.show(in: self!)
                 }
             })
+            
             self?.dismiss(animated: true, completion: nil)
         }
         
@@ -85,7 +135,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return itemColors.count
+        return pictures_list.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -93,7 +143,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
 
         if cell.imageview_pic != nil {
             cell.backgroundColor = itemColors[indexPath.row]
-            cell.imageview_pic!.image = UIImage(named: "pic")
+            cell.imageview_pic!.image = self.pictures_list[indexPath.row]
             cell.imageview_pic!.frame.size.width = cellWidth
             cell.imageview_pic!.frame.size.height = cellHeight
         }
@@ -136,4 +186,5 @@ extension HomeViewController : UIScrollViewDelegate
         targetContentOffset.pointee = offset
     }
 }
+
 
