@@ -24,9 +24,11 @@ class LoginViewController: UIViewController, FUIAuthDelegate {
         initDBInformation()
         
         self.authStateListenerHandle = self.auth?.addStateDidChangeListener { (auth, user) in
-            guard user != nil else {
+            
+            if user != nil {
+                self.performSegue(withIdentifier: "login_to_home", sender: nil)
+            }else {
                 self.loginAction(sender: self)
-                return
             }
         }
     }
@@ -35,12 +37,12 @@ class LoginViewController: UIViewController, FUIAuthDelegate {
         self.auth = Auth.auth()
         
         // Test code
-        do {
-            try self.auth?.signOut()
-            print("SignOUt!")
-        } catch  {
-            print("Error!!! : \(error)")
-        }
+//        do {
+//            try self.auth?.signOut()
+//            print("SignOUt!")
+//        } catch  {
+//            print("Error!!! : \(error)")
+//        }
         // Test code
         
         self.authUI = FUIAuth.defaultAuthUI()
