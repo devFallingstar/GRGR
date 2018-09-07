@@ -88,7 +88,7 @@ class LoginViewController: UIViewController, FUIAuthDelegate {
     func authUI(_ authUI: FUIAuth, didSignInWith authDataResult: AuthDataResult?, error: Error?) {
         let userData = authDataResult?.user
         let id = userData?.email
-        self.firebaseDBHelper?.getUserInfo(withId: id) {
+        self.firebaseDBHelper?.getIfUserExist(withId: id) {
             (isExist) in
             if isExist {
                 self.performSegue(withIdentifier: "login_to_home", sender: nil)
