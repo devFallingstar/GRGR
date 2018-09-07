@@ -8,13 +8,15 @@
 
 import UIKit
 import FirebaseAuth
+import ALCameraViewController
 
 class HomeViewController: UIViewController {
     var currentUser:User?
     var cellWidth:CGFloat!
     var cellHeight:CGFloat!
+    var firebaseDBHelper:FirebaseDBHelper?
     
-    var date_list = ["2018.08.06", "2018.12.31", "2018.07.29", "2018.11.27"]
+    var date_list = ["2018.08.06", "2018.12.29", "2018.07.29", "2018.11.11"]
     
     @IBOutlet weak var HomeCollectionView: UICollectionView!
     @IBOutlet weak var lbl_date: UILabel!
@@ -25,6 +27,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         initUI()
+        initDBInformation()
     }
     
     func initUI() {
@@ -38,7 +41,7 @@ class HomeViewController: UIViewController {
         
         let layout = HomeCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
-        layout.minimumLineSpacing = 30
+        layout.minimumLineSpacing = 45
         layout.scrollDirection = .horizontal
         
         HomeCollectionView.contentInset = UIEdgeInsets(top: insetY, left: insetX, bottom: insetY, right: insetX)
@@ -49,6 +52,26 @@ class HomeViewController: UIViewController {
         HomeCollectionView.decelerationRate = UIScrollViewDecelerationRateFast
         
         lbl_date.text = date_list[0]
+    }
+    
+    func initDBInformation() {
+        self.firebaseDBHelper = FirebaseDBHelper()
+    }
+    
+    @IBAction func onCameraBtnClicked(_ sender: Any) {
+        let cameraViewController = CameraViewController { [weak self] image, asset in
+            // Do something with your image here.
+            self?.firebaseDBHelper?.uploadPictureToStorage(withPicture: image, completionHandler: { (isUploaded) in
+                if isUploaded {
+                    print("Uploaded!")
+                }else {
+                    print("Failed to Upload!")
+                }
+            })
+            self?.dismiss(animated: true, completion: nil)
+        }
+        
+        present(cameraViewController, animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -81,13 +104,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let itemsIndices = self.HomeCollectionView.indexPathsForVisibleItems
         let firstIndex = itemsIndices[0][1]
-        let secondIndex = itemsIndices[1][1]
         
-        if firstIndex < secondIndex {
-            lbl_date.text = date_list[firstIndex]
-        }else {
-            lbl_date.text = date_list[secondIndex]
-        }
+        lbl_date.text = date_list[firstIndex]
     }
 }
 
