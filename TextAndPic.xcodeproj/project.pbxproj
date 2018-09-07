@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		5347A20D0E43D7EAE05154CC /* Pods_TextAndPic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3BD20F0CDB5315B48CCBEF2 /* Pods_TextAndPic.framework */; };
+		DD1D840D2142E81D00096E2D /* KoPubDotum_Pro_Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = DD1D840B2142E81D00096E2D /* KoPubDotum_Pro_Medium.otf */; };
+		DD1D840E2142E81D00096E2D /* KoPubBatang_Pro_Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = DD1D840C2142E81D00096E2D /* KoPubBatang_Pro_Medium.otf */; };
+		DD20B15B214283B3005C4453 /* PostWritingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD20B15A214283B3005C4453 /* PostWritingViewController.swift */; };
+		DD20B15D2142A921005C4453 /* PostcardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD20B15C2142A921005C4453 /* PostcardCollectionViewCell.swift */; };
+		DD20B15F2142AEF0005C4453 /* PostcardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD20B15E2142AEF0005C4453 /* PostcardModel.swift */; };
+		DD20B1612142BCED005C4453 /* CollectionViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD20B1602142BCED005C4453 /* CollectionViewCellModel.swift */; };
 		DDD11F442136B43A009D8C22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD11F432136B43A009D8C22 /* AppDelegate.swift */; };
 		DDD11F462136B43A009D8C22 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD11F452136B43A009D8C22 /* HomeViewController.swift */; };
 		DDD11F492136B43A009D8C22 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDD11F472136B43A009D8C22 /* Main.storyboard */; };
@@ -28,6 +34,12 @@
 /* Begin PBXFileReference section */
 		8C7653094A73E628A40DBE71 /* Pods-TextAndPic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TextAndPic.release.xcconfig"; path = "Target Support Files/Pods-TextAndPic/Pods-TextAndPic.release.xcconfig"; sourceTree = "<group>"; };
 		A84026B3EC68C185C009EBCA /* Pods-TextAndPic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TextAndPic.debug.xcconfig"; path = "Target Support Files/Pods-TextAndPic/Pods-TextAndPic.debug.xcconfig"; sourceTree = "<group>"; };
+		DD1D840B2142E81D00096E2D /* KoPubDotum_Pro_Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KoPubDotum_Pro_Medium.otf; sourceTree = "<group>"; };
+		DD1D840C2142E81D00096E2D /* KoPubBatang_Pro_Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KoPubBatang_Pro_Medium.otf; sourceTree = "<group>"; };
+		DD20B15A214283B3005C4453 /* PostWritingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostWritingViewController.swift; sourceTree = "<group>"; };
+		DD20B15C2142A921005C4453 /* PostcardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostcardCollectionViewCell.swift; sourceTree = "<group>"; };
+		DD20B15E2142AEF0005C4453 /* PostcardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostcardModel.swift; sourceTree = "<group>"; };
+		DD20B1602142BCED005C4453 /* CollectionViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellModel.swift; sourceTree = "<group>"; };
 		DDD11F402136B43A009D8C22 /* TextAndPic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextAndPic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDD11F432136B43A009D8C22 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DDD11F452136B43A009D8C22 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +90,23 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		DD1D84062142E79700096E2D /* CustomFonts */ = {
+			isa = PBXGroup;
+			children = (
+				DD1D840C2142E81D00096E2D /* KoPubBatang_Pro_Medium.otf */,
+				DD1D840B2142E81D00096E2D /* KoPubDotum_Pro_Medium.otf */,
+			);
+			path = CustomFonts;
+			sourceTree = "<group>";
+		};
+		DD20B159214283A2005C4453 /* Writing */ = {
+			isa = PBXGroup;
+			children = (
+				DD20B15A214283B3005C4453 /* PostWritingViewController.swift */,
+			);
+			path = Writing;
+			sourceTree = "<group>";
+		};
 		DDD11F372136B43A009D8C22 = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +128,7 @@
 		DDD11F422136B43A009D8C22 /* TextAndPic */ = {
 			isa = PBXGroup;
 			children = (
+				DD1D84062142E79700096E2D /* CustomFonts */,
 				DDD11F5D2136BFA1009D8C22 /* TextAndPic.entitlements */,
 				DDD11F5A2136B5C9009D8C22 /* Core */,
 				DDD11F592136B5BE009D8C22 /* Storyboard */,
@@ -114,7 +144,7 @@
 		DDD11F572136B5AE009D8C22 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				DDD11F7821416E53009D8C22 /* Camera */,
+				DD20B159214283A2005C4453 /* Writing */,
 				DDD11F7121416812009D8C22 /* Detail */,
 				DDD11F6E21403730009D8C22 /* MyPage */,
 				DDD11F5E2136C6D5009D8C22 /* Login */,
@@ -164,6 +194,7 @@
 			children = (
 				DDD11F6921401505009D8C22 /* CollectionViewCell.swift */,
 				DDD11F452136B43A009D8C22 /* HomeViewController.swift */,
+				DD20B1602142BCED005C4453 /* CollectionViewCellModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -181,15 +212,10 @@
 			children = (
 				DDD11F7421416911009D8C22 /* PostcardCollectionViewController.swift */,
 				DDD11F76214169F4009D8C22 /* PostcardContentViewController.swift */,
+				DD20B15C2142A921005C4453 /* PostcardCollectionViewCell.swift */,
+				DD20B15E2142AEF0005C4453 /* PostcardModel.swift */,
 			);
 			path = Detail;
-			sourceTree = "<group>";
-		};
-		DDD11F7821416E53009D8C22 /* Camera */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Camera;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,7 +287,9 @@
 				DDD11F4E2136B43C009D8C22 /* LaunchScreen.storyboard in Resources */,
 				DDD11F562136B4D2009D8C22 /* GoogleService-Info.plist in Resources */,
 				DDD11F622136C74A009D8C22 /* CustomFBAuthViewController.xib in Resources */,
+				DD1D840E2142E81D00096E2D /* KoPubBatang_Pro_Medium.otf in Resources */,
 				DDD11F4B2136B43C009D8C22 /* Assets.xcassets in Resources */,
+				DD1D840D2142E81D00096E2D /* KoPubDotum_Pro_Medium.otf in Resources */,
 				DDD11F492136B43A009D8C22 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,6 +328,7 @@
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
@@ -322,6 +351,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Floaty.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
@@ -374,13 +404,17 @@
 			files = (
 				DDD11F5C2136B89F009D8C22 /* LoginViewController.swift in Sources */,
 				DDD11F462136B43A009D8C22 /* HomeViewController.swift in Sources */,
+				DD20B15B214283B3005C4453 /* PostWritingViewController.swift in Sources */,
 				DDD11F642136C916009D8C22 /* FirebaseDBHelper.swift in Sources */,
+				DD20B15F2142AEF0005C4453 /* PostcardModel.swift in Sources */,
+				DD20B15D2142A921005C4453 /* PostcardCollectionViewCell.swift in Sources */,
 				DDD11F6A21401505009D8C22 /* CollectionViewCell.swift in Sources */,
 				DDD11F672136CF61009D8C22 /* SetNicknameViewController.swift in Sources */,
 				DDD11F612136C74A009D8C22 /* CustomFBAuthViewController.swift in Sources */,
 				DDD11F77214169F4009D8C22 /* PostcardContentViewController.swift in Sources */,
 				DDD11F442136B43A009D8C22 /* AppDelegate.swift in Sources */,
 				DDD11F7521416911009D8C22 /* PostcardCollectionViewController.swift in Sources */,
+				DD20B1612142BCED005C4453 /* CollectionViewCellModel.swift in Sources */,
 				DDD11F702141629A009D8C22 /* MyPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
