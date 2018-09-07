@@ -6,4 +6,12 @@
 //  Copyright © 2018년 Fallingstar. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+struct PostcardModel {
+    let image: UIImage
+    let content: String
+    let title: String
+    let nickname: String
+    let date: String
+}
