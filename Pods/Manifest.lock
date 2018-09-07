@@ -77,6 +77,7 @@ PODS:
   - FirebaseUI/Google (5.2.0):
     - FirebaseUI/Auth
     - GoogleSignIn (~> 4.0)
+  - Floaty (4.0.1)
   - GoogleAppMeasurement (5.1.1):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2.0)
     - GoogleUtilities/MethodSwizzler (~> 5.2.0)
@@ -162,6 +163,7 @@ DEPENDENCIES:
   - FirebaseUI/Auth
   - FirebaseUI/Facebook
   - FirebaseUI/Google
+  - Floaty
   - GoogleSignIn
   - NVActivityIndicatorView
   - UPCarouselFlowLayout
@@ -183,6 +185,7 @@ SPEC REPOS:
     - FirebaseInstanceID
     - FirebaseStorage
     - FirebaseUI
+    - Floaty
     - GoogleAppMeasurement
     - GoogleSignIn
     - GoogleToolboxForMac
@@ -215,6 +218,7 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: ea5af6920d0a4a29b40459d055bebe4a6c1333c4
   FirebaseStorage: 43f823b96b72a08539eba21a7de043348a69d4c6
   FirebaseUI: 9dfa423b6f1b73737ae8ab62692c1c0a8886186d
+  Floaty: 82854e1a5ef4fa208281ebd4da2f3d1e51ba67a6
   GoogleAppMeasurement: f7507b39b70ad0bd80b3d81518b2f43868974307
   GoogleSignIn: 591e46382014e591269f862ba6e7bc0fbd793532
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
@@ -231,6 +235,6 @@ SPEC CHECKSUMS:
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   UPCarouselFlowLayout: 02045c1505d63057fba3d9975be880a8d16bf17d
 
-PODFILE CHECKSUM: 45e440365a08dfe9afccaa31993e0657bc06fe9b
+PODFILE CHECKSUM: 919c830d2dc366a1fe29563c214338b020603501
 
 COCOAPODS: 1.6.0.beta.1
