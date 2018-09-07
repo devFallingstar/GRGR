@@ -36,8 +36,8 @@ class FirebaseDBHelper {
             "platform":_platform,
             "profilePic":"",
             "description":"",
-            "userArtics":[],
-            "userPics":[],
+            "userArtics" : {},
+            "userPics" : {},
             "signupDate":"\(Date().ticks)",
         ]) { err in
             if let err = err {
@@ -65,38 +65,81 @@ class FirebaseDBHelper {
         }
     }
     
-    func uploadPictureToStorage(withPicture _picture:UIImage!, completionHandler:@escaping (_ isUploaded:Bool) -> Void) {
+    func uploadPictureToStorage(withPicture _picture:UIImage!, _filename:String!,  completionHandler:@escaping (_ isUploaded:Bool) -> Void) {
         var imageData = Data()
-        var imageRef = storagePics.child("testpics.png")
-        imageData = UIImagePNGRepresentation(_picture)!
+        let imageRef = storagePics.child(_filename+".jpeg")
+        imageData = UIImageJPEGRepresentation(_picture, 0.2)!
         
         imageRef.putData(imageData, metadata: nil) { (metadata, error) in
-            guard let metadata = metadata else{
-                print(error)
+            guard metadata != nil else{
+                print(error!)
                 completionHandler(false)
                 return
             }
             completionHandler(true)
-            
+        }
+    }
+    
+    func addNewPictureInfo(withOwner _owner:String!, completionHandler:@escaping (_ isAdded:Bool) -> Void) -> String {
+        var ref: DocumentReference! = nil
+        ref = self.collectionPics.addDocument(data: [
+            "articles" : [],
+            "createDate" : "\(Date().ticks)",
+            "filename" : "",
+            "owner" : "\(_owner.toBase64())",
+            "position" : arc4random_uniform(100)
+        ]) { (error) in
+            if error != nil {
+                completionHandler(false)
+            }else {
+                self.collectionPics.document("\(ref!.documentID)").updateData([
+                    "filename" : ref!.documentID], completion: { (error) in
+                        if error != nil {
+                            completionHandler(false)
+                        }else {
+                            completionHandler(true)
+                        }
+                })
+            }
         }
         
+        return ref.documentID
     }
-}
-
-extension String {
-    func fromBase64() -> String? {
-        guard let data = Data(base64Encoded: self) else {
-            return nil
+    
+    func appendPictureToUserInfo(withOwner _owner:String!, pictureID:String!, completionHandler:@escaping (_ isUploaded:Bool) -> Void) {
+        collectionUser.document(_owner.toBase64()).updateData([
+            "userArtics."+pictureID : pictureID
+        ]) { (error) in
+            if error != nil {
+                completionHandler(false)
+            }else {
+                completionHandler(true)
+            }
         }
-        return String(data: data, encoding: .utf8)
     }
-    func toBase64() -> String {
-        return Data(self.utf8).base64EncodedString()
+    
+    func getRandomPicturesID(completionHandler:@escaping (_ DocumentID:String) -> Void) {
+        let queryRef:Query!
+        
+        queryRef = collectionPics.order(by: "position", descending: true)
+        .limit(to: 3)
+        
+        queryRef.getDocuments { (snapshot, error) in
+            for document in snapshot!.documents {
+                // TODO - 도큐먼트 하나 받아서 position 값 바꿔주고 completion return 하기
+                self.collectionPics.document(document.documentID).updateData(["position" : arc4random_uniform(100)])
+                
+                completionHandler(document.documentID)
+            }
+        }
     }
-}
-
-extension Date {
-    var ticks: UInt64 {
-        return UInt64((self.timeIntervalSince1970 + 62_135_596_800) * 10_000_000)
+    
+    func getImageWithDownloadURL(withImageName _imageName:String!, completionHandler:@escaping (_ DownloadURL:UIImage) -> Void) {
+        let imageRef = storagePics.child(_imageName+".jpeg")
+        
+        imageRef.getData(maxSize: 1024*1024*5) { (data, error) in
+            let pic = UIImage(data: data!)
+            completionHandler(pic!)
+        }
     }
 }
